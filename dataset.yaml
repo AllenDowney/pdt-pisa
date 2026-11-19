@@ -1,0 +1,31 @@
+# The dataset, its terms and its releases (STANDARD.md §2.1, §8).
+# Schema: PublicDataToolkit/schema/dataset.schema.json. Edited by hand.
+standard_version: "0.1"
+id: pisa
+title: "Programme for International Student Assessment (PISA), student questionnaire"
+publisher:
+  name: "Organisation for Economic Co-operation and Development (OECD)"
+  url: "https://www.oecd.org/en/about/programmes/pisa.html"
+url: "https://webfs.oecd.org/pisa2022/index.html"
+description: "The OECD\u0027s assessment of 15-year-old students in reading, mathematics and science, with a student questionnaire, every three years since 2000 in up to 81 countries and economies."
+# Terms are decided by a person, never by an agent or this template (STANDARD.md §8).
+# Quote what the terms pages say in `summary`, then have a person set each field
+# to ship or build-only and fill reviewed_by and reviewed_on. `unknown` blocks
+# shipping anything that depends on it.
+terms:
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+  summary: Not yet reviewed.
+  data: unknown
+  documentation: unknown
+  metadata: unknown
+  llm_processing: unknown
+dimensions:
+  wave:
+    label: "cycle"
+releases:
+  - id: "2022"
+    label: "PISA 2022 Database"
+    status: current
+    sources: [pisa2022-codebook]
+    # A release with several data files lists `tables`, each with an id, label,
+    # sources, key and references (STANDARD.md §2.1). Examples: pdt-nsfg, pdt-fars.

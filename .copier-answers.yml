@@ -1,0 +1,22 @@
+# Changes here will be overwritten by Copier; do not edit by hand.
+_commit: v0.1.0
+_src_path: /home/downey/PublicDataToolkit
+citation: ''
+dataset_id: pisa
+dataset_url: https://webfs.oecd.org/pisa2022/index.html
+description: The OECD's assessment of 15-year-old students in reading, mathematics
+    and science, with a student questionnaire, every three years since 2000 in up
+    to 81 countries and economies.
+form_label: ''
+publisher_name: Organisation for Economic Co-operation and Development (OECD)
+publisher_url: https://www.oecd.org/en/about/programmes/pisa.html
+release_id: '2022'
+release_label: PISA 2022 Database
+source_format: xlsx
+source_id: pisa2022-codebook
+source_kind: codebook
+source_url: https://webfs.oecd.org/pisa2022/CY08MSP_CODEBOOK_27thJune24.xlsx
+standard_version: '0.1'
+terms_url: https://www.oecd.org/en/about/terms-conditions.html
+title: Programme for International Student Assessment (PISA), student questionnaire
+wave_label: cycle

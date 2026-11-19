@@ -1,0 +1,18 @@
+# Every file this repo depends on (STANDARD.md §2.2): data files, codebooks,
+# questionnaires, release notes, errata and terms pages, upstream packages.
+# Schema: PublicDataToolkit/schema/sources.schema.json. Edited by hand.
+#
+# Once a file is fetched, fill fetched_on, bytes and sha256 (pdt check C6).
+# An upstream package also needs `version` (a tag or commit), and documentation
+# says which releases it `documents`.
+sources:
+  - id: pisa2022-codebook
+    title: "PISA 2022 Database, codebook"
+    kind: codebook
+    format: xlsx
+    url: "https://webfs.oecd.org/pisa2022/CY08MSP_CODEBOOK_27thJune24.xlsx"
+    path: data/raw/CHANGE-ME
+    releases: ["2022"]
+    documents: ["2022"]
+    redistribution: unknown
+    acquisition: automated
