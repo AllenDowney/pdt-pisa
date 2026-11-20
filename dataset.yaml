@@ -2,16 +2,18 @@
 # Schema: PublicDataToolkit/schema/dataset.schema.json. Edited by hand.
 standard_version: "0.1"
 id: pisa
+kind: survey
 title: "Programme for International Student Assessment (PISA), student questionnaire"
 publisher:
   name: "Organisation for Economic Co-operation and Development (OECD)"
   url: "https://www.oecd.org/en/about/programmes/pisa.html"
 url: "https://webfs.oecd.org/pisa2022/index.html"
-description: "The OECD\u0027s assessment of 15-year-old students in reading, mathematics and science, with a student questionnaire, every three years since 2000 in up to 81 countries and economies."
+description: >-
+  The OECD's assessment of 15-year-old students in reading, mathematics and science, with
+  a student questionnaire, every three years since 2000 (2022 was delayed a year). Each
+  cycle is its own database. This repo covers the student questionnaire file of the 2012,
+  2015, 2018 and 2022 cycles.
 # Terms are decided by a person, never by an agent or this template (STANDARD.md §8).
-# Quote what the terms pages say in `summary`, then have a person set each field
-# to ship or build-only and fill reviewed_by and reviewed_on. `unknown` blocks
-# shipping anything that depends on it.
 terms:
   url: "https://www.oecd.org/en/about/terms-conditions.html"
   summary: Not yet reviewed.
@@ -19,13 +21,64 @@ terms:
   documentation: unknown
   metadata: unknown
   llm_processing: unknown
+design:
+  weights: [W_FSTUWT]
+  note: >-
+    W_FSTUWT is the "FINAL TRIMMED NONRESPONSE ADJUSTED STUDENT WEIGHT". Sampling variance
+    is estimated with 80 replicate weights, "REPLICATE BRR-FAY WEIGHTS" (W_FSTURWT1-80 from
+    2015; W_FSTR1-80 in 2012), not with strata and PSUs, so `strata` and `psu` are left out.
+    The replicate weights are the group `<release>.replicate-weights`. Plausible values
+    (PV1READ-PV10READ; PV1READ-PV5READ in 2012) are the group `<release>.pv-read`.
 dimensions:
   wave:
     label: "cycle"
+    note: The assessment year. Each cycle is one release, so a release holds one wave.
 releases:
+  - id: "2012"
+    label: "PISA 2012 Database"
+    status: superseded
+    sources: [pisa2012-sas-control, pisa2012-spss-control]
+    tables:
+      - id: student
+        label: "Student questionnaire data file (INT_STU12_DEC03.txt)"
+        description: >-
+          Fixed-width text laid out by the SAS control file. The common-format file here
+          holds four countries' rows only (CNT in USA, GBR, DEU, JPN); see build/slice.yaml.
+        sources: [pisa2012-stu]
+        key: [CNT, SCHOOLID, StIDStd]
+  - id: "2015"
+    label: "PISA 2015 Database"
+    status: superseded
+    sources: [pisa2015-codebook]
+    tables:
+      - id: student
+        label: "Student questionnaire data file (CY6_MS_CMB_STU_QQQ.sav)"
+        description: >-
+          The common-format file here holds four countries' rows only (CNT in USA, GBR,
+          DEU, JPN); see build/slice.yaml.
+        sources: [pisa2015-stu]
+        key: [CNTSTUID]
+  - id: "2018"
+    label: "PISA 2018 Database"
+    status: superseded
+    sources: [pisa2018-codebook]
+    tables:
+      - id: student
+        label: "Student questionnaire data file (CY07_MSU_STU_QQQ.sav)"
+        description: >-
+          The common-format file here holds four countries' rows only (CNT in USA, GBR,
+          DEU, JPN); see build/slice.yaml.
+        sources: [pisa2018-stu]
+        key: [CNTSTUID]
   - id: "2022"
     label: "PISA 2022 Database"
     status: current
-    sources: [pisa2022-codebook]
-    # A release with several data files lists `tables`, each with an id, label,
-    # sources, key and references (STANDARD.md §2.1). Examples: pdt-nsfg, pdt-fars.
+    sources: [pisa2022-codebook, pisa2022-stu-questionnaire]
+    tables:
+      - id: student
+        label: "Student questionnaire data file (CY08MSP_STU_QQQ.SAV)"
+        description: >-
+          The common-format file here holds four countries' rows only (CNT in USA, GBR,
+          DEU, JPN); see build/slice.yaml.
+        sources: [pisa2022-stu]
+        key: [CNTSTUID]
