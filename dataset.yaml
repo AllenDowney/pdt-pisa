@@ -59,7 +59,7 @@ dimensions:
 releases:
   - id: "2012"
     label: "PISA 2012 Database"
-    status: superseded
+    status: current
     sources: [pisa2012-sas-control, pisa2012-spss-control, nces-pisa2012-stu-questionnaire-a,
               nces-pisa2012-stu-questionnaire-b, nces-pisa2012-stu-questionnaire-c, pisa2012-techrep]
     design:
@@ -85,7 +85,7 @@ releases:
         key: [CNT, SCHOOLID, StIDStd]
   - id: "2015"
     label: "PISA 2015 Database"
-    status: superseded
+    status: current
     sources: [pisa2015-codebook, nces-pisa2015-stu-questionnaire, pisa-data-files-page, nces-pisa2015-techrep]
     design:
       weights: [W_FSTUWT]
@@ -107,7 +107,7 @@ releases:
         key: [CNTSTUID]
   - id: "2018"
     label: "PISA 2018 Database"
-    status: superseded
+    status: current
     sources: [pisa2018-codebook, nces-pisa2018-stu-questionnaire, pisa-data-files-page, nces-pisa2018-techrep]
     design:
       weights: [W_FSTUWT]
