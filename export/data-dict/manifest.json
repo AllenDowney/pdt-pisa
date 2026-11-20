@@ -1,7 +1,7 @@
 {
- "pdt_version": "0.1.0",
- "inputs_sha256": "ec59438946fb4f99547028cf77cd2a7015e849ef0df802168aa021f11dc787f4",
- "generator_sha256": "feed02ead6fb62dd3ce5164d7c62ab1bc77fefdf83e06a7164b95afa87aba2cf",
+ "pdt_version": "0.2.0",
+ "inputs_sha256": "3ffab87432a17862b416569d453d29cf9b2f4c256800087b50fc46631cf9ef5e",
+ "generator_sha256": "5bd837fcfa83e3bb04c37847b6e1662f093b130380ce5a4ef1067334b670c30d",
  "dataset": "pisa",
  "spec": "0.1.0",
  "files": [
@@ -14,51 +14,51 @@
  "losses": {
   "2012": {
    "release_version": 1,
-   "variables": 103,
-   "availability": 112,
-   "provenance_fields": 522,
-   "missing_codes": 298,
+   "variables": 23,
+   "availability": 32,
+   "provenance_fields": 122,
+   "missing_codes": 58,
    "untyped": 2,
    "numeric_code_labels": 12,
-   "open_ranges": 88,
-   "groups": 12,
-   "links": 206
+   "open_ranges": 8,
+   "groups": 8,
+   "links": 46
   },
   "2015": {
    "release_version": 1,
-   "variables": 104,
-   "availability": 104,
-   "provenance_fields": 526,
+   "variables": 24,
+   "availability": 24,
+   "provenance_fields": 126,
    "untyped": 2,
-   "missing_codes": 151,
-   "open_ranges": 93,
+   "missing_codes": 71,
+   "open_ranges": 13,
    "numeric_code_labels": 8,
-   "groups": 12,
-   "links": 206
+   "groups": 8,
+   "links": 46
   },
   "2018": {
    "release_version": 1,
-   "variables": 104,
-   "availability": 104,
-   "provenance_fields": 526,
+   "variables": 24,
+   "availability": 24,
+   "provenance_fields": 126,
    "untyped": 2,
-   "missing_codes": 142,
-   "open_ranges": 93,
+   "missing_codes": 62,
+   "open_ranges": 13,
    "numeric_code_labels": 8,
-   "groups": 12,
-   "links": 206
+   "groups": 8,
+   "links": 46
   },
   "2022": {
    "release_version": 1,
-   "variables": 104,
-   "availability": 104,
-   "provenance_fields": 528,
+   "variables": 24,
+   "availability": 24,
+   "provenance_fields": 128,
    "untyped": 2,
-   "missing_codes": 142,
-   "open_ranges": 93,
+   "missing_codes": 62,
+   "open_ranges": 13,
    "numeric_code_labels": 8,
-   "groups": 12,
-   "links": 206
+   "groups": 8,
+   "links": 46
   }
  }
 }

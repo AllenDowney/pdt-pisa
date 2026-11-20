@@ -1,7 +1,7 @@
 {
- "pdt_version": "0.1.0",
- "inputs_sha256": "ec59438946fb4f99547028cf77cd2a7015e849ef0df802168aa021f11dc787f4",
- "generator_sha256": "feed02ead6fb62dd3ce5164d7c62ab1bc77fefdf83e06a7164b95afa87aba2cf",
+ "pdt_version": "0.2.0",
+ "inputs_sha256": "3ffab87432a17862b416569d453d29cf9b2f4c256800087b50fc46631cf9ef5e",
+ "generator_sha256": "5bd837fcfa83e3bb04c37847b6e1662f093b130380ce5a4ef1067334b670c30d",
  "dataset": "pisa",
  "max_tokens": 20000,
  "shards": [
@@ -20,28 +20,22 @@
    "releases": [
     "2012"
    ],
-   "n_in_scope": 103,
+   "n_in_scope": 23,
    "rule_versions": {},
    "notes": [],
-   "count": 103,
+   "count": 23,
    "files": [
     {
-     "path": "shards/table/2012-student.part1.jsonl",
+     "path": "shards/table/2012-student.jsonl",
      "form": "jsonl",
-     "variables": 79,
-     "tokens": 19529
-    },
-    {
-     "path": "shards/table/2012-student.part2.jsonl",
-     "form": "jsonl",
-     "variables": 24,
-     "tokens": 7800
+     "variables": 23,
+     "tokens": 8252
     },
     {
      "path": "shards/table/2012-student.txt",
      "form": "txt",
-     "variables": 103,
-     "tokens": 2360
+     "variables": 23,
+     "tokens": 764
     }
    ]
   },
@@ -60,28 +54,22 @@
    "releases": [
     "2015"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {},
    "notes": [],
-   "count": 104,
+   "count": 24,
    "files": [
     {
-     "path": "shards/table/2015-student.part1.jsonl",
+     "path": "shards/table/2015-student.jsonl",
      "form": "jsonl",
-     "variables": 87,
-     "tokens": 18577
-    },
-    {
-     "path": "shards/table/2015-student.part2.jsonl",
-     "form": "jsonl",
-     "variables": 17,
-     "tokens": 8257
+     "variables": 24,
+     "tokens": 11336
     },
     {
      "path": "shards/table/2015-student.txt",
      "form": "txt",
-     "variables": 104,
-     "tokens": 2975
+     "variables": 24,
+     "tokens": 699
     }
    ]
   },
@@ -100,28 +88,22 @@
    "releases": [
     "2018"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {},
    "notes": [],
-   "count": 104,
+   "count": 24,
    "files": [
     {
-     "path": "shards/table/2018-student.part1.jsonl",
+     "path": "shards/table/2018-student.jsonl",
      "form": "jsonl",
-     "variables": 87,
-     "tokens": 19038
-    },
-    {
-     "path": "shards/table/2018-student.part2.jsonl",
-     "form": "jsonl",
-     "variables": 17,
-     "tokens": 5121
+     "variables": 24,
+     "tokens": 8161
     },
     {
      "path": "shards/table/2018-student.txt",
      "form": "txt",
-     "variables": 104,
-     "tokens": 3016
+     "variables": 24,
+     "tokens": 740
     }
    ]
   },
@@ -140,64 +122,22 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {},
    "notes": [],
-   "count": 104,
+   "count": 24,
    "files": [
     {
-     "path": "shards/table/2022-student.part1.jsonl",
+     "path": "shards/table/2022-student.jsonl",
      "form": "jsonl",
-     "variables": 89,
-     "tokens": 19527
-    },
-    {
-     "path": "shards/table/2022-student.part2.jsonl",
-     "form": "jsonl",
-     "variables": 15,
-     "tokens": 3932
+     "variables": 24,
+     "tokens": 7961
     },
     {
      "path": "shards/table/2022-student.txt",
      "form": "txt",
-     "variables": 104,
-     "tokens": 3002
-    }
-   ]
-  },
-  {
-   "kind": "group",
-   "title": "other: Replicate weights (BRR-Fay)",
-   "basis": "members of group 2022.replicate-weights (origin rule) in the current release (2022)",
-   "full_records": [
-    "metadata/releases/2022/student/variables.jsonl"
-   ],
-   "completeness": "complete_by_rule",
-   "filter": {
-    "release": "2022",
-    "group": "2022.replicate-weights"
-   },
-   "releases": [
-    "2022"
-   ],
-   "n_in_scope": 104,
-   "rule_versions": {
-    "pisa_name_series": "0.1"
-   },
-   "notes": [],
-   "count": 80,
-   "files": [
-    {
-     "path": "shards/group/2022-replicate-weights.jsonl",
-     "form": "jsonl",
-     "variables": 80,
-     "tokens": 15515
-    },
-    {
-     "path": "shards/group/2022-replicate-weights.txt",
-     "form": "txt",
-     "variables": 80,
-     "tokens": 2425
+     "variables": 24,
+     "tokens": 726
     }
    ]
   },
@@ -216,7 +156,7 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {
     "pisa_name_series": "0.1"
    },
@@ -233,7 +173,7 @@
      "path": "shards/group/2022-pv-read.txt",
      "form": "txt",
      "variables": 10,
-     "tokens": 316
+     "tokens": 315
     }
    ]
   },
@@ -252,7 +192,7 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {},
    "notes": [],
    "count": 6,
@@ -273,40 +213,6 @@
   },
   {
    "kind": "group",
-   "title": "other: Replicate weights (BRR-Fay)",
-   "basis": "members of group 2018.replicate-weights (origin rule) in the current release (2022)",
-   "full_records": [],
-   "completeness": "complete_by_rule",
-   "filter": {
-    "release": "2022",
-    "group": "2018.replicate-weights"
-   },
-   "releases": [
-    "2022"
-   ],
-   "n_in_scope": 104,
-   "rule_versions": {
-    "pisa_name_series": "0.1"
-   },
-   "notes": [],
-   "count": 0,
-   "files": [
-    {
-     "path": "shards/group/2018-replicate-weights.jsonl",
-     "form": "jsonl",
-     "variables": 0,
-     "tokens": 129
-    },
-    {
-     "path": "shards/group/2018-replicate-weights.txt",
-     "form": "txt",
-     "variables": 0,
-     "tokens": 150
-    }
-   ]
-  },
-  {
-   "kind": "group",
    "title": "plausible_values: Plausible values in reading",
    "basis": "members of group 2018.pv-read (origin rule) in the current release (2022)",
    "full_records": [],
@@ -318,7 +224,7 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {
     "pisa_name_series": "0.1"
    },
@@ -335,7 +241,7 @@
      "path": "shards/group/2018-pv-read.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 148
+     "tokens": 147
     }
    ]
   },
@@ -352,7 +258,7 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {},
    "notes": [],
    "count": 0,
@@ -373,40 +279,6 @@
   },
   {
    "kind": "group",
-   "title": "other: Replicate weights (BRR-Fay)",
-   "basis": "members of group 2015.replicate-weights (origin rule) in the current release (2022)",
-   "full_records": [],
-   "completeness": "complete_by_rule",
-   "filter": {
-    "release": "2022",
-    "group": "2015.replicate-weights"
-   },
-   "releases": [
-    "2022"
-   ],
-   "n_in_scope": 104,
-   "rule_versions": {
-    "pisa_name_series": "0.1"
-   },
-   "notes": [],
-   "count": 0,
-   "files": [
-    {
-     "path": "shards/group/2015-replicate-weights.jsonl",
-     "form": "jsonl",
-     "variables": 0,
-     "tokens": 129
-    },
-    {
-     "path": "shards/group/2015-replicate-weights.txt",
-     "form": "txt",
-     "variables": 0,
-     "tokens": 150
-    }
-   ]
-  },
-  {
-   "kind": "group",
    "title": "plausible_values: Plausible values in reading",
    "basis": "members of group 2015.pv-read (origin rule) in the current release (2022)",
    "full_records": [],
@@ -418,7 +290,7 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {
     "pisa_name_series": "0.1"
    },
@@ -435,7 +307,7 @@
      "path": "shards/group/2015-pv-read.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 148
+     "tokens": 147
     }
    ]
   },
@@ -452,7 +324,7 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {},
    "notes": [],
    "count": 0,
@@ -473,40 +345,6 @@
   },
   {
    "kind": "group",
-   "title": "other: Replicate weights (BRR-Fay)",
-   "basis": "members of group 2012.replicate-weights (origin rule) in the current release (2022)",
-   "full_records": [],
-   "completeness": "complete_by_rule",
-   "filter": {
-    "release": "2022",
-    "group": "2012.replicate-weights"
-   },
-   "releases": [
-    "2022"
-   ],
-   "n_in_scope": 104,
-   "rule_versions": {
-    "pisa_name_series": "0.1"
-   },
-   "notes": [],
-   "count": 0,
-   "files": [
-    {
-     "path": "shards/group/2012-replicate-weights.jsonl",
-     "form": "jsonl",
-     "variables": 0,
-     "tokens": 129
-    },
-    {
-     "path": "shards/group/2012-replicate-weights.txt",
-     "form": "txt",
-     "variables": 0,
-     "tokens": 150
-    }
-   ]
-  },
-  {
-   "kind": "group",
    "title": "plausible_values: Plausible values in reading",
    "basis": "members of group 2012.pv-read (origin rule) in the current release (2022)",
    "full_records": [],
@@ -518,7 +356,7 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {
     "pisa_name_series": "0.1"
    },
@@ -535,7 +373,7 @@
      "path": "shards/group/2012-pv-read.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 148
+     "tokens": 147
     }
    ]
   },
@@ -552,7 +390,7 @@
    "releases": [
     "2022"
    ],
-   "n_in_scope": 104,
+   "n_in_scope": 24,
    "rule_versions": {},
    "notes": [],
    "count": 0,
@@ -576,8 +414,8 @@
  "across_releases": [
   {
    "path": "variables.txt",
-   "variables": 226,
-   "tokens": 6104
+   "variables": 66,
+   "tokens": 2193
   }
  ]
 }

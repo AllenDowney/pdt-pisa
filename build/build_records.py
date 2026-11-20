@@ -73,7 +73,8 @@ def names_of(spec):
     """(name, kind) for the release's variables, in a fixed order."""
     out = [(n, "id") for n in spec["ids"]] + ([(spec["form"], "form")] if spec.get("form") else [])
     out += [("W_FSTUWT", "weight")]
-    out += [(f"{spec['replicates']}{i}", "replicate") for i in range(1, 81)]
+    # The 80 replicate weights have no records: dataset.yaml's design.replicates names them, and the
+    # data files carry them as plain columns (PublicDataToolkit Task 55 follow-up).
     out += [(spec["sex"], "sex"), (spec["grade"], "grade"), ("ESCS", "index")]
     out += [(n, "belonging") for n in spec["belonging"]] + [("BELONG", "index")]
     out += [(f"PV{i}READ", "pv") for i in range(1, spec["pvs"] + 1)]
@@ -319,15 +320,10 @@ def groups_for(release, spec, records):
     names = {r["name"] for r in records}
     rule, version = RULES["series"]
     ref = lambda n: {"release": release, "table": TABLE, "name": n}  # noqa: E731
-    reps = [f"{spec['replicates']}{i}" for i in range(1, 81) if f"{spec['replicates']}{i}" in names]
     pvs = [f"PV{i}READ" for i in range(1, spec["pvs"] + 1) if f"PV{i}READ" in names]
     series = {"origin": "rule", "rule": rule, "rule_version": version,
               "note": "Members by the publisher's numbered names and labels."}
-    out = [{"id": f"{release}.replicate-weights", "kind": "other", "label": "Replicate weights (BRR-Fay)",
-            "releases": [release], "members": [ref(n) for n in reps], "ordered": True, "origin": series,
-            "note": "The 80 replicate weights, labelled '... STUDENT REPLICATE BRR-FAY WEIGHT(S) n'. Variance is "
-                    "estimated over all 80, with W_FSTUWT (dataset.yaml `design`)."},
-           {"id": f"{release}.pv-read", "kind": "plausible_values", "label": "Plausible values in reading",
+    out = [{"id": f"{release}.pv-read", "kind": "plausible_values", "label": "Plausible values in reading",
             "releases": [release], "members": [ref(n) for n in pvs], "ordered": True, "origin": series,
             "note": f"{len(pvs)} plausible values of each student's reading score, to be analysed together."}]
     bel = [n for n in spec["belonging"] if n in names]
