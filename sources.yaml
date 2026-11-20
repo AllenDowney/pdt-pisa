@@ -155,6 +155,7 @@ sources:
       and save the file to the path.
   # ---- question text for 2012-2018: the US versions (NCES). The OECD's international
   # questionnaires for these cycles are on www.oecd.org pages behind a bot check.
+  # Redistribution: US federal works; Allen Downey decided they ship (2026-11-20).
   - id: nces-pisa2018-stu-questionnaire
     title: "PISA 2018 Student Common Part Questionnaire - English (US version, NCES)"
     kind: questionnaire
@@ -163,7 +164,7 @@ sources:
     path: data/raw/nces_pisa2018_Student_Q_Booklet_English.html
     releases: ["2018"]
     documents: ["2018"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: 18ba5095a8b314db79080843477bb02304e30e2c9232d1cc850ce32bbddbae1d
@@ -177,7 +178,7 @@ sources:
     path: data/raw/nces_pisa2015_Student_Q_CommonPart_English.html
     releases: ["2015"]
     documents: ["2015"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: a58a6852a8d7cd05706774c3c390e41f3a6f76a4ef5fc2b6802488cb9ae305ec
@@ -192,7 +193,7 @@ sources:
     convert: "pdftotext -layout (poppler 24.02)"
     releases: ["2012"]
     documents: ["2012"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: a12a0e0a5f6df04720df486edf6b03c86681709125a9f2c5d1165347774b53d4
@@ -207,7 +208,7 @@ sources:
     convert: "pdftotext -layout (poppler 24.02)"
     releases: ["2012"]
     documents: ["2012"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: 106a4bc30f6a9c2c85b7694763851737ddc5699d77f2cefb842011be03872c08
@@ -222,7 +223,7 @@ sources:
     convert: "pdftotext -layout (poppler 24.02)"
     releases: ["2012"]
     documents: ["2012"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: 0fd5d5e03b3c04fee02d465f15a53f417f5d824948e2ae94f8c62c153813effa
@@ -236,7 +237,7 @@ sources:
     url: "https://webfs.oecd.org/pisa2022/index.html"
     path: data/raw/webfs_pisa_index.html
     releases: ["2015", "2018", "2022"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: df0d033036868d57ff2cf66ed6dc13c893fbfde9812eb8230ba1ba2ab4cba3ec
