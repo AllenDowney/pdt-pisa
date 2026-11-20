@@ -73,6 +73,8 @@ For a question about when or to whom a variable was asked ("every item on form A
 
 `available` matches a variable with an availability entry for that wave on that form, or with
 no form (everyone in that wave was asked); leave out `form` for "asked at all in that wave".
+`sample`, `mode`, `phase` and `geography` work the same way, when the dataset's
+`dimensions` define them: `{"wave": 2022, "geography": "25"}` is "asked there in 2022".
 It is `complete` when availability comes from the publisher or the data file. Picking the
 same variables by reading a shard gives the same list but is `approximate`, because you made
 the selection; if you can't run `pdt search`, say so and label it `approximate`.
