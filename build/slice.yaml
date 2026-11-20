@@ -1,9 +1,74 @@
 # The variables to build, and facts the sources don't give (origin: hand).
 # Edited by hand; read by build/build_records.py.
-release: "2022"
-# Start with 30-50 variables that include the hard cases: a battery, an item
-# asked on only some forms, several wordings, several kinds of missing codes,
-# and anything the publisher has corrected (instructions/03-parse-documentation.md).
-variables: {}
-#  name:
-#    measure: categorical   # categorical, ordinal, continuous, count, identifier, weight, text, date
+author: "Claude (PublicDataToolkit Task 45)"
+date: "2026-11-19"
+
+# Rows kept in the common-format files (not in the records, which describe whole files).
+countries: [USA, GBR, DEU, JPN]
+
+releases:
+  "2022":
+    format: spss
+    data: pisa2022-stu
+    member: CY08MSP_STU_QQQ.SAV
+    codebook: pisa2022-codebook
+    sheet: CY08MSP_STU_QQQ
+    questionnaire: pisa2022-stu-questionnaire
+    ids: [CNT, CNTSCHID, CNTSTUID]
+    replicates: W_FSTURWT          # 1-80
+    pvs: 10
+    sex: ST004D01T
+    grade: ST001D01T
+    belonging: [ST034Q01TA, ST034Q02TA, ST034Q03TA, ST034Q04TA, ST034Q05TA, ST034Q06TA]
+  "2018":
+    format: spss
+    data: pisa2018-stu
+    member: STU/CY07_MSU_STU_QQQ.sav
+    codebook: pisa2018-codebook
+    sheet: CY07_MSU_STU_QQQ
+    ids: [CNT, CNTSCHID, CNTSTUID]
+    replicates: W_FSTURWT
+    pvs: 10
+    sex: ST004D01T
+    grade: ST001D01T
+    belonging: [ST034Q01TA, ST034Q02TA, ST034Q03TA, ST034Q04TA, ST034Q05TA, ST034Q06TA]
+  "2015":
+    format: spss
+    data: pisa2015-stu
+    member: CY6_MS_CMB_STU_QQQ.sav
+    codebook: pisa2015-codebook
+    sheet: "CY6_MS_CMB_STU_QQQ (Student)"
+    ids: [CNT, CNTSCHID, CNTSTUID]
+    replicates: W_FSTURWT
+    pvs: 10
+    sex: ST004D01T
+    grade: ST001D01T
+    belonging: [ST034Q01TA, ST034Q02TA, ST034Q03TA, ST034Q04TA, ST034Q05TA, ST034Q06TA]
+  "2012":
+    format: sas-text
+    data: pisa2012-stu
+    member: INT_STU12_DEC03.txt
+    sas: pisa2012-sas-control
+    spss: pisa2012-spss-control
+    ids: [CNT, SCHOOLID, StIDStd]
+    replicates: W_FSTR
+    pvs: 5
+    sex: ST04Q01
+    grade: ST01Q01
+    belonging: [ST87Q01, ST87Q02, ST87Q03, ST87Q04, ST87Q05, ST87Q06, ST87Q07, ST87Q08, ST87Q09]
+
+# Scaled indices: estimated afresh in each cycle, so a same-named index isn't linked across
+# cycles. The OECD publishes ESCS rescaled for trend analysis in separate files
+# (escs_trend.zip, trend_escs_SPSS.zip), which says the cycles' own values aren't comparable.
+rescaled: [BELONG, ESCS]
+
+# How each kind of variable was produced, and what its values are (STANDARD.md §4.1).
+kinds:
+  id:         {variable_type: administrative, measure: identifier}
+  weight:     {variable_type: weight, measure: weight}
+  replicate:  {variable_type: weight, measure: weight}
+  sex:        {variable_type: recode, measure: categorical}
+  grade:      {variable_type: recode, measure: ordinal}
+  belonging:  {variable_type: response, measure: ordinal}
+  index:      {variable_type: computed, measure: continuous}
+  pv:         {variable_type: computed, measure: continuous}

@@ -1,0 +1,63 @@
+{
+ "pdt_version": "0.1.0",
+ "inputs_sha256": "50f59be77e9f7bb8a99eb79b3d108aae7705e9cf3cd1d611f5ecbb383337d258",
+ "dataset": "pisa",
+ "spec": "0.1.0",
+ "files": [
+  "2012.yaml",
+  "2015.yaml",
+  "2018.yaml",
+  "2022.yaml",
+  "LOSSES.md"
+ ],
+ "losses": {
+  "2012": {
+   "release_version": 1,
+   "variables": 102,
+   "availability": 102,
+   "provenance_fields": 508,
+   "missing_codes": 297,
+   "untyped": 2,
+   "open_ranges": 88,
+   "numeric_code_labels": 11,
+   "groups": 12,
+   "links": 204
+  },
+  "2015": {
+   "release_version": 1,
+   "variables": 104,
+   "availability": 104,
+   "provenance_fields": 520,
+   "untyped": 2,
+   "missing_codes": 151,
+   "open_ranges": 93,
+   "numeric_code_labels": 8,
+   "groups": 12,
+   "links": 204
+  },
+  "2018": {
+   "release_version": 1,
+   "variables": 104,
+   "availability": 104,
+   "provenance_fields": 520,
+   "untyped": 2,
+   "missing_codes": 142,
+   "open_ranges": 93,
+   "numeric_code_labels": 8,
+   "groups": 12,
+   "links": 204
+  },
+  "2022": {
+   "release_version": 1,
+   "variables": 104,
+   "availability": 104,
+   "provenance_fields": 528,
+   "untyped": 2,
+   "missing_codes": 142,
+   "open_ranges": 93,
+   "numeric_code_labels": 8,
+   "groups": 12,
+   "links": 204
+  }
+ }
+}
