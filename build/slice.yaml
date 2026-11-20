@@ -1,10 +1,9 @@
 # The variables to build, and facts the sources don't give (origin: hand).
 # Edited by hand; read by build/build_records.py.
 author: "Claude (PublicDataToolkit Task 45)"
-date: "2026-11-19"
+date: "2026-11-20"
 
-# Rows kept in the common-format files (not in the records, which describe whole files).
-countries: [USA, GBR, DEU, JPN]
+# The rows kept in the common-format files are dataset.yaml's `data_rows` (four countries).
 
 releases:
   "2022":
@@ -26,6 +25,7 @@ releases:
     member: STU/CY07_MSU_STU_QQQ.sav
     codebook: pisa2018-codebook
     sheet: CY07_MSU_STU_QQQ
+    nces: nces-pisa2018-stu-questionnaire      # the US version: question text
     ids: [CNT, CNTSCHID, CNTSTUID]
     replicates: W_FSTURWT
     pvs: 10
@@ -38,6 +38,7 @@ releases:
     member: CY6_MS_CMB_STU_QQQ.sav
     codebook: pisa2015-codebook
     sheet: "CY6_MS_CMB_STU_QQQ (Student)"
+    nces: nces-pisa2015-stu-questionnaire
     ids: [CNT, CNTSCHID, CNTSTUID]
     replicates: W_FSTURWT
     pvs: 10
@@ -50,6 +51,11 @@ releases:
     member: INT_STU12_DEC03.txt
     sas: pisa2012-sas-control
     spss: pisa2012-spss-control
+    nces_forms:                                  # the US version of each form: question text
+      A: nces-pisa2012-stu-questionnaire-a
+      B: nces-pisa2012-stu-questionnaire-b
+      C: nces-pisa2012-stu-questionnaire-c
+    form: QuestID
     ids: [CNT, SCHOOLID, StIDStd]
     replicates: W_FSTR
     pvs: 5
@@ -57,14 +63,16 @@ releases:
     grade: ST01Q01
     belonging: [ST87Q01, ST87Q02, ST87Q03, ST87Q04, ST87Q05, ST87Q06, ST87Q07, ST87Q08, ST87Q09]
 
-# Scaled indices: estimated afresh in each cycle, so a same-named index isn't linked across
-# cycles. The OECD publishes ESCS rescaled for trend analysis in separate files
-# (escs_trend.zip, trend_escs_SPSS.zip), which says the cycles' own values aren't comparable.
-rescaled: [BELONG, ESCS]
+# Scaled indices, estimated afresh in each cycle. A same-named index is linked across cycles
+# only as `rescaled`, and only where a source says it was rescaled: for ESCS, the OECD's data
+# files page lists "Rescaled indices of economic, social and cultural status (ESCS) for use
+# with the PISA 2012, 2015 and 2018 datasets". No source here says so of BELONG.
+rescaled: {ESCS: pisa-data-files-page, BELONG: null}
 
 # How each kind of variable was produced, and what its values are (STANDARD.md §4.1).
 kinds:
   id:         {variable_type: administrative, measure: identifier}
+  form:       {variable_type: administrative, measure: categorical}
   weight:     {variable_type: weight, measure: weight}
   replicate:  {variable_type: weight, measure: weight}
   sex:        {variable_type: recode, measure: categorical}

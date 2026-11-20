@@ -27,62 +27,86 @@ terms:
   reviewed_on: "2026-11-19"
 design:
   weights: [W_FSTUWT]
+  replicates:
+    prefix: W_FSTURWT
+    n: 80
+    method: fay
+    note: >-
+      The data files label them "FINAL TRIMMED NONRESPONSE ADJUSTED STUDENT REPLICATE
+      BRR-FAY WEIGHTS n". Fay's factor isn't in the sources here (the technical reports,
+      which give it, are behind a bot check), so `fay_factor` is left out.
   note: >-
-    W_FSTUWT is the "FINAL TRIMMED NONRESPONSE ADJUSTED STUDENT WEIGHT". Sampling variance
-    is estimated with 80 replicate weights, "REPLICATE BRR-FAY WEIGHTS" (W_FSTURWT1-80 from
-    2015; W_FSTR1-80 in 2012), not with strata and PSUs, so `strata` and `psu` are left out.
-    The replicate weights are the group `<release>.replicate-weights`. Plausible values
-    (PV1READ-PV10READ; PV1READ-PV5READ in 2012) are the group `<release>.pv-read`.
+    W_FSTUWT is the "FINAL TRIMMED NONRESPONSE ADJUSTED STUDENT WEIGHT". Variance comes from
+    the replicate weights, not from strata and PSUs, so `strata` and `psu` are left out.
+    2012 names its replicates W_FSTR1-80 (its release overrides this). The replicate weights
+    are the group `<release>.replicate-weights`, and the plausible values (PV1READ-PV10READ;
+    PV1READ-PV5READ in 2012) the group `<release>.pv-read`.
+data_rows:
+  column: CNT
+  in: [USA, GBR, DEU, JPN]
 dimensions:
   wave:
     label: "cycle"
     note: The assessment year. Each cycle is one release, so a release holds one wave.
+  form:
+    label: "questionnaire form"
+    column: QuestID
+    codes: {"1": "A", "2": "B", "3": "C", "5": "UH"}
+    note: >-
+      2012 only: the student questionnaire rotated three forms (A, B, C) and a short one-hour
+      form (UH); QuestID says which a student had. The sense-of-belonging question (ST87) is
+      on forms B and C.
 releases:
   - id: "2012"
     label: "PISA 2012 Database"
     status: superseded
-    sources: [pisa2012-sas-control, pisa2012-spss-control]
+    sources: [pisa2012-sas-control, pisa2012-spss-control, nces-pisa2012-stu-questionnaire-a,
+              nces-pisa2012-stu-questionnaire-b, nces-pisa2012-stu-questionnaire-c]
+    design:
+      weights: [W_FSTUWT]
+      replicates:
+        prefix: W_FSTR
+        n: 80
+        method: fay
+        note: Labelled "FINAL STUDENT REPLICATE BRR-FAY WEIGHT n" in the SAS control file.
     tables:
       - id: student
         label: "Student questionnaire data file (INT_STU12_DEC03.txt)"
         description: >-
           Fixed-width text laid out by the SAS control file. The common-format file here
-          holds four countries' rows only (CNT in USA, GBR, DEU, JPN); see build/slice.yaml.
+          holds four countries' rows only (`data_rows`).
         sources: [pisa2012-stu]
         key: [CNT, SCHOOLID, StIDStd]
   - id: "2015"
     label: "PISA 2015 Database"
     status: superseded
-    sources: [pisa2015-codebook]
+    sources: [pisa2015-codebook, nces-pisa2015-stu-questionnaire, pisa-data-files-page]
     tables:
       - id: student
         label: "Student questionnaire data file (CY6_MS_CMB_STU_QQQ.sav)"
         description: >-
-          The common-format file here holds four countries' rows only (CNT in USA, GBR,
-          DEU, JPN); see build/slice.yaml.
+          The common-format file here holds four countries' rows only (`data_rows`).
         sources: [pisa2015-stu]
         key: [CNTSTUID]
   - id: "2018"
     label: "PISA 2018 Database"
     status: superseded
-    sources: [pisa2018-codebook]
+    sources: [pisa2018-codebook, nces-pisa2018-stu-questionnaire, pisa-data-files-page]
     tables:
       - id: student
         label: "Student questionnaire data file (CY07_MSU_STU_QQQ.sav)"
         description: >-
-          The common-format file here holds four countries' rows only (CNT in USA, GBR,
-          DEU, JPN); see build/slice.yaml.
+          The common-format file here holds four countries' rows only (`data_rows`).
         sources: [pisa2018-stu]
         key: [CNTSTUID]
   - id: "2022"
     label: "PISA 2022 Database"
     status: current
-    sources: [pisa2022-codebook, pisa2022-stu-questionnaire]
+    sources: [pisa2022-codebook, pisa2022-stu-questionnaire, pisa-data-files-page]
     tables:
       - id: student
         label: "Student questionnaire data file (CY08MSP_STU_QQQ.SAV)"
         description: >-
-          The common-format file here holds four countries' rows only (CNT in USA, GBR,
-          DEU, JPN); see build/slice.yaml.
+          The common-format file here holds four countries' rows only (`data_rows`).
         sources: [pisa2022-stu]
         key: [CNTSTUID]

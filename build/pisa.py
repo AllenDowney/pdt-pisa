@@ -6,25 +6,21 @@ with its SAS and SPSS control files, and the 2022 student questionnaire.
     read_sav(path, columns, countries)    raw frame for pdt.data: system missing -> Code(".")
     codebook(xlsx, sheet)                 {name: entry} from a PISA codebook sheet
     code_of(text)                         a codebook VAL ("1", ".N/97", "7 / .N") -> (code, marked missing?)
-    sas2012(sas, interim)                 the 2012 SAS program with `$` added from its LENGTH statement
-    read_2012(txt, sas, columns, countries)   raw frame via pdt.readers.read_sas_input
     labels_2012(sas), formats_2012(sas), missing_2012(sps)
     questionnaire_2022(txt)               {item id: {text, stem, item, instructions, number, page}}
+    nces_html(txt, qid)                   a battery in NCES's HTML questionnaires (2015, 2018)
+    nces_2012(txt, qid)                   a battery in NCES's 2012 PDF questionnaires (one form)
 
-The raw frames keep the publisher's codes as numbers (97, 9997): they're ordinary values
-that the records list as missing. Only SPSS's system missing (and a blank numeric field
-in the 2012 text) is a token, Code("."), as pdt.readers does for SAS and Stata.
+The data files are read by the shared readers: pdt.readers.read_sav (2015-2022) and
+pdt.readers.read_sas_input (2012, whose LENGTH statement marks its text columns).
 """
 
 import re
 import zipfile
 from pathlib import Path
 
-import pandas as pd
 import pyreadstat
 
-from pdt.data import Code
-from pdt.readers import parse_sas_input, read_sas_input
 
 
 def member(zip_path, name, interim):
@@ -43,30 +39,6 @@ def member(zip_path, name, interim):
 def sav_meta(path):
     _, meta = pyreadstat.read_sav(str(path), metadataonly=True, user_missing=True)
     return meta
-
-
-def _keep(frame, countries):
-    if countries:
-        frame = frame[frame["CNT"].isin(countries)]
-    return frame.reset_index(drop=True)
-
-
-def read_sav(path, columns, countries=None):
-    """The .sav file's columns as a raw frame, with only the rows whose CNT is in countries.
-
-    User-missing values (95-99, 5-9) stay numbers; system missing becomes Code(".").
-    """
-    use = list(dict.fromkeys(list(columns) + (["CNT"] if countries else [])))
-    frame, meta = pyreadstat.read_sav(str(path), usecols=use, user_missing=True)
-    frame = _keep(frame, countries)
-    out = {}
-    for name in columns:
-        if meta.readstat_variable_types[name] == "string":
-            out[name] = pd.Series(frame[name].tolist(), dtype=object)
-        else:
-            out[name] = pd.Series([Code(".") if v != v else (int(v) if float(v).is_integer() else float(v))
-                                   for v in frame[name].tolist()], dtype=object)
-    return pd.DataFrame(out)
 
 
 # ------------------------------------------------------------------ codebooks (2015-2022)
@@ -113,33 +85,73 @@ def _statement(text, keyword, nth=0):
     return found[nth] if len(found) > nth else ""
 
 
-def sas2012(sas, interim):
-    """A copy of the 2012 SAS program whose input statement marks text columns with `$`.
-
-    The program declares text columns in its LENGTH statement (`CNT $3`), not in its input
-    statement (`CNT 1 - 3`), which is where pdt.readers.parse_sas_input looks. Only that
-    mark is added; nothing else changes.
-    """
-    text = open(sas, encoding="utf-8-sig", errors="replace").read()
-    texts = {m.group(1).upper() for m in re.finditer(r"^\s*(\w+)\s+\$\s*\d+\s*$", _statement(text, "length"), re.M)}
-    body = _statement(text, "input")
-    marked = re.sub(r"^(\s*)(\w+)(\s+)(\d+\s*-\s*\d+)",
-                    lambda m: f"{m.group(1)}{m.group(2)}{m.group(3)}{'$ ' if m.group(2).upper() in texts else ''}{m.group(4)}",
-                    body, flags=re.M)
-    out = Path(interim) / "PISA2012_SAS_student.marked.sas"
-    out.write_text("input\n" + marked + ";\nlabel\n" + _statement(text, "label") + ";\n")
-    return out
+def text_of(path):
+    """The visible text of an HTML file, one line per block, or a text file's contents."""
+    import html as html_lib
+    raw = open(path, encoding="utf-8", errors="replace").read()
+    if not str(path).endswith((".html", ".htm")):
+        return raw.split("\n")
+    raw = re.sub(r"<script.*?</script>|<style.*?</style>", "", raw, flags=re.S)
+    raw = html_lib.unescape(re.sub(r"<[^>]+>", "\n", raw))
+    return [l.strip() for l in raw.split("\n") if l.strip()]
 
 
-def read_2012(txt, sas_marked, columns, countries=None):
-    use = list(dict.fromkeys(list(columns) + (["CNT"] if countries else [])))
-    frame = read_sas_input(txt, sas_marked, use)
-    frame = _keep(frame, countries)
-    return frame[list(columns)]
+RESPONSES = {"strongly agree", "agree", "disagree", "strongly disagree"}
 
 
-def layout_2012(sas_marked):
-    return parse_sas_input(sas_marked)
+def nces_html(path, qid):
+    """{stem, instructions, responses, items} for question qid (ST034) in an NCES HTML questionnaire:
+    its id on a line, the stem, the instructions, the response labels, then one item per line."""
+    lines = text_of(path)
+    i = lines.index(qid)
+    stem, j = [], i + 1
+    while not lines[j].startswith("("):
+        stem.append(lines[j])
+        j += 1
+    instructions = lines[j]
+    j += 1
+    responses = []
+    while lines[j].lower().replace("  ", " ") in RESPONSES:
+        responses.append(lines[j])
+        j += 1
+    items = []
+    while j < len(lines) and not re.fullmatch(r"ST\d{3}", lines[j]):
+        items.append(" ".join(lines[j].split()))
+        j += 1
+    return {"stem": " ".join(stem), "instructions": instructions, "responses": responses, "items": items}
+
+
+def nces_2012(path, qid):
+    """{number, stem, instructions, items: {letter: text}} for question qid (ST87) on one 2012 form:
+    the id printed above "Q40  Thinking about ...", the instructions, then items "a) ..." whose
+    lines end in the response codes."""
+    lines = text_of(path)
+    i = next(n for n, l in enumerate(lines) if l.strip() == qid)
+    j = i + 1
+    while not re.match(r"^Q\d+\s", lines[j].strip()):
+        j += 1
+    m = re.match(r"^(Q\d+)\s+(.*)$", lines[j].strip())
+    number, stem = m.group(1), [m.group(2)]
+    j += 1
+    while lines[j].strip() and not lines[j].strip().startswith("("):
+        stem.append(lines[j].strip())
+        j += 1
+    while not lines[j].strip().startswith("("):
+        j += 1
+    instructions = lines[j].strip()
+    items, current = {}, None
+    for line in lines[j + 1:]:
+        t = line.strip()
+        if re.fullmatch(r"ST\d+", t) or re.match(r"^Q\d+\s", t):
+            break
+        m = re.match(r"^([a-z])\)\s+(.*)$", t)
+        if m:
+            current = m.group(1)
+            items[current] = m.group(2)
+        elif current and t and not re.fullmatch(r"[\d\s]+", t) and not re.fullmatch(r"(Strongly|agree|Agree|Disagree|disagree|\s)+", t):
+            items[current] += " " + t
+    items = {k: re.sub(r"(\s+\d)+\s*$", "", " ".join(v.split())) for k, v in items.items()}
+    return {"number": number, "stem": " ".join(stem), "instructions": instructions, "items": items}
 
 
 def labels_2012(sas):

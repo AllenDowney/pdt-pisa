@@ -1,6 +1,6 @@
 {
  "pdt_version": "0.1.0",
- "inputs_sha256": "50f59be77e9f7bb8a99eb79b3d108aae7705e9cf3cd1d611f5ecbb383337d258",
+ "inputs_sha256": "e3ed84d51fc3aba4f04e79301b30535f50c0f44f484918474bda1f6d4441242b",
  "dataset": "pisa",
  "max_tokens": 20000,
  "shards": [
@@ -19,28 +19,28 @@
    "releases": [
     "2012"
    ],
-   "n_in_scope": 102,
+   "n_in_scope": 103,
    "rule_versions": {},
    "notes": [],
-   "count": 102,
+   "count": 103,
    "files": [
     {
      "path": "shards/table/2012-student.part1.jsonl",
      "form": "jsonl",
      "variables": 79,
-     "tokens": 19530
+     "tokens": 19529
     },
     {
      "path": "shards/table/2012-student.part2.jsonl",
      "form": "jsonl",
-     "variables": 23,
-     "tokens": 5966
+     "variables": 24,
+     "tokens": 7800
     },
     {
      "path": "shards/table/2012-student.txt",
      "form": "txt",
-     "variables": 102,
-     "tokens": 2111
+     "variables": 103,
+     "tokens": 2360
     }
    ]
   },
@@ -67,20 +67,20 @@
     {
      "path": "shards/table/2015-student.part1.jsonl",
      "form": "jsonl",
-     "variables": 88,
-     "tokens": 19416
+     "variables": 87,
+     "tokens": 18577
     },
     {
      "path": "shards/table/2015-student.part2.jsonl",
      "form": "jsonl",
-     "variables": 16,
-     "tokens": 6356
+     "variables": 17,
+     "tokens": 8257
     },
     {
      "path": "shards/table/2015-student.txt",
      "form": "txt",
      "variables": 104,
-     "tokens": 2830
+     "tokens": 2975
     }
    ]
   },
@@ -107,20 +107,20 @@
     {
      "path": "shards/table/2018-student.part1.jsonl",
      "form": "jsonl",
-     "variables": 88,
-     "tokens": 19379
+     "variables": 87,
+     "tokens": 19038
     },
     {
      "path": "shards/table/2018-student.part2.jsonl",
      "form": "jsonl",
-     "variables": 16,
-     "tokens": 3915
+     "variables": 17,
+     "tokens": 5121
     },
     {
      "path": "shards/table/2018-student.txt",
      "form": "txt",
      "variables": 104,
-     "tokens": 2871
+     "tokens": 3016
     }
    ]
   },
@@ -202,7 +202,7 @@
   },
   {
    "kind": "group",
-   "title": "other: Plausible values in reading",
+   "title": "plausible_values: Plausible values in reading",
    "basis": "members of group 2022.pv-read (origin rule) in the current release (2022)",
    "full_records": [
     "metadata/releases/2022/student/variables.jsonl"
@@ -226,13 +226,13 @@
      "path": "shards/group/2022-pv-read.jsonl",
      "form": "jsonl",
      "variables": 10,
-     "tokens": 1922
+     "tokens": 1925
     },
     {
      "path": "shards/group/2022-pv-read.txt",
      "form": "txt",
      "variables": 10,
-     "tokens": 313
+     "tokens": 316
     }
    ]
   },
@@ -306,7 +306,7 @@
   },
   {
    "kind": "group",
-   "title": "other: Plausible values in reading",
+   "title": "plausible_values: Plausible values in reading",
    "basis": "members of group 2018.pv-read (origin rule) in the current release (2022)",
    "full_records": [],
    "completeness": "complete_by_rule",
@@ -328,22 +328,22 @@
      "path": "shards/group/2018-pv-read.jsonl",
      "form": "jsonl",
      "variables": 0,
-     "tokens": 124
+     "tokens": 127
     },
     {
      "path": "shards/group/2018-pv-read.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 145
+     "tokens": 148
     }
    ]
   },
   {
    "kind": "group",
    "title": "battery: Sense of belonging at school",
-   "basis": "members of group 2018.belonging (origin rule) in the current release (2022)",
+   "basis": "members of group 2018.belonging (origin publisher) in the current release (2022)",
    "full_records": [],
-   "completeness": "complete_by_rule",
+   "completeness": "complete",
    "filter": {
     "release": "2022",
     "group": "2018.belonging"
@@ -352,9 +352,7 @@
     "2022"
    ],
    "n_in_scope": 104,
-   "rule_versions": {
-    "pisa_name_series": "0.1"
-   },
+   "rule_versions": {},
    "notes": [],
    "count": 0,
    "files": [
@@ -362,13 +360,13 @@
      "path": "shards/group/2018-belonging.jsonl",
      "form": "jsonl",
      "variables": 0,
-     "tokens": 126
+     "tokens": 119
     },
     {
      "path": "shards/group/2018-belonging.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 147
+     "tokens": 138
     }
    ]
   },
@@ -408,7 +406,7 @@
   },
   {
    "kind": "group",
-   "title": "other: Plausible values in reading",
+   "title": "plausible_values: Plausible values in reading",
    "basis": "members of group 2015.pv-read (origin rule) in the current release (2022)",
    "full_records": [],
    "completeness": "complete_by_rule",
@@ -430,22 +428,22 @@
      "path": "shards/group/2015-pv-read.jsonl",
      "form": "jsonl",
      "variables": 0,
-     "tokens": 124
+     "tokens": 127
     },
     {
      "path": "shards/group/2015-pv-read.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 145
+     "tokens": 148
     }
    ]
   },
   {
    "kind": "group",
    "title": "battery: Sense of belonging at school",
-   "basis": "members of group 2015.belonging (origin rule) in the current release (2022)",
+   "basis": "members of group 2015.belonging (origin publisher) in the current release (2022)",
    "full_records": [],
-   "completeness": "complete_by_rule",
+   "completeness": "complete",
    "filter": {
     "release": "2022",
     "group": "2015.belonging"
@@ -454,9 +452,7 @@
     "2022"
    ],
    "n_in_scope": 104,
-   "rule_versions": {
-    "pisa_name_series": "0.1"
-   },
+   "rule_versions": {},
    "notes": [],
    "count": 0,
    "files": [
@@ -464,13 +460,13 @@
      "path": "shards/group/2015-belonging.jsonl",
      "form": "jsonl",
      "variables": 0,
-     "tokens": 126
+     "tokens": 119
     },
     {
      "path": "shards/group/2015-belonging.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 147
+     "tokens": 138
     }
    ]
   },
@@ -510,7 +506,7 @@
   },
   {
    "kind": "group",
-   "title": "other: Plausible values in reading",
+   "title": "plausible_values: Plausible values in reading",
    "basis": "members of group 2012.pv-read (origin rule) in the current release (2022)",
    "full_records": [],
    "completeness": "complete_by_rule",
@@ -532,22 +528,22 @@
      "path": "shards/group/2012-pv-read.jsonl",
      "form": "jsonl",
      "variables": 0,
-     "tokens": 124
+     "tokens": 127
     },
     {
      "path": "shards/group/2012-pv-read.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 145
+     "tokens": 148
     }
    ]
   },
   {
    "kind": "group",
    "title": "battery: Sense of belonging at school",
-   "basis": "members of group 2012.belonging (origin rule) in the current release (2022)",
+   "basis": "members of group 2012.belonging (origin publisher) in the current release (2022)",
    "full_records": [],
-   "completeness": "complete_by_rule",
+   "completeness": "complete",
    "filter": {
     "release": "2022",
     "group": "2012.belonging"
@@ -556,9 +552,7 @@
     "2022"
    ],
    "n_in_scope": 104,
-   "rule_versions": {
-    "pisa_name_series": "0.1"
-   },
+   "rule_versions": {},
    "notes": [],
    "count": 0,
    "files": [
@@ -566,13 +560,13 @@
      "path": "shards/group/2012-belonging.jsonl",
      "form": "jsonl",
      "variables": 0,
-     "tokens": 126
+     "tokens": 119
     },
     {
      "path": "shards/group/2012-belonging.txt",
      "form": "txt",
      "variables": 0,
-     "tokens": 147
+     "tokens": 138
     }
    ]
   }
@@ -580,8 +574,8 @@
  "across_releases": [
   {
    "path": "variables.txt",
-   "variables": 225,
-   "tokens": 5579
+   "variables": 226,
+   "tokens": 6104
   }
  ]
 }

@@ -15,10 +15,13 @@ Where each field comes from (STANDARD.md §3):
 - 2012, label: the SAS control file's label statement. Values: its value formats. Missing:
   the SPSS syntax's MISSING VALUES; else the same label rule.
 - missing types: rule pisa_missing_types, from each code's label (Valid Skip -> inap, ...).
-- question text: the 2022 student questionnaire (stem, item, instructions, number); none for
-  2012-2018, whose questionnaires aren't sources yet.
+- question text: the 2022 student questionnaire (stem, item, instructions, number). For
+  2012-2018, the US versions from NCES (the OECD's international ones are behind a bot
+  check), each wording noted as the US version. 2012's belonging question is on forms B and
+  C only, so its items' availability names those forms; the data confirm it (build/report.md).
 - measure, variable_type: build/slice.yaml (hand), by kind of variable.
-- links: rule pisa_same_name_same_label between consecutive cycles from 2015 (below).
+- links: rule pisa_same_name_same_label between consecutive cycles from 2015 (below); a
+  scaled index only as `rescaled`, where a source says so (slice.yaml `rescaled`).
 """
 
 import json
@@ -33,6 +36,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 try:
     from pdt.compare import compare_text, is_change
+    from pdt.readers import parse_sas_input, read_sas_input
 except ImportError:
     sys.exit("Needs the PublicDataToolkit library on PYTHONPATH (make build sets it).")
 import pisa  # noqa: E402
@@ -67,7 +71,8 @@ def sources():
 
 def names_of(spec):
     """(name, kind) for the release's variables, in a fixed order."""
-    out = [(n, "id") for n in spec["ids"]] + [("W_FSTUWT", "weight")]
+    out = [(n, "id") for n in spec["ids"]] + ([(spec["form"], "form")] if spec.get("form") else [])
+    out += [("W_FSTUWT", "weight")]
     out += [(f"{spec['replicates']}{i}", "replicate") for i in range(1, 81)]
     out += [(spec["sex"], "sex"), (spec["grade"], "grade"), ("ESCS", "index")]
     out += [(n, "belonging") for n in spec["belonging"]] + [("BELONG", "index")]
@@ -141,6 +146,24 @@ def add_question(rec, fields, name, kind, spec, quest):
             fields["questions"] = {**origin, "location": f"p. {q['page']}"}
 
 
+US_NOTE = ("The US version (NCES), adapted from the international questionnaire; the OECD's international "
+           "version isn't a source here.")
+
+
+def add_nces_question(rec, fields, name, spec, src, release):
+    """A 2015 or 2018 belonging item's wording, from NCES's US questionnaire (ST034 battery)."""
+    q = pisa.nces_html(ROOT / src[spec["nces"]]["path"], name[:5])
+    k = int(name[6:8]) - 1
+    note = US_NOTE
+    if q["responses"] and q["responses"][0].lower().startswith("strongly disagree"):
+        note += (f" Its response options run {', '.join(q['responses'])}, the reverse of the data's codes "
+                 "(1 = Strongly agree).")
+    rec["questions"] = [{"text": f"{q['stem']} {q['items'][k]}", "stem": q["stem"], "item": q["items"][k],
+                         "instructions": q["instructions"], "number": name, "note": note}]
+    fields["questions"] = {"origin": "publisher", "source": spec["nces"],
+                           "note": f"Item {k + 1} of {name[:5]}, by its position, as the data's {name} is."}
+
+
 def build_spss(release, spec, src, cfg, report):
     path = pisa.member(ROOT / src[spec["data"]]["path"], spec["member"], INTERIM)
     meta = pisa.sav_meta(path)
@@ -209,6 +232,8 @@ def build_spss(release, spec, src, cfg, report):
         common(rec, fields, release, kind, cfg, spec["codebook"], name)
         if quest:
             add_question(rec, fields, name, kind, spec, quest)
+        elif spec.get("nces") and kind == "belonging":
+            add_nces_question(rec, fields, name, spec, src, release)
         rec["provenance"] = {"record": {"origin": "publisher", "source": spec["codebook"], "location": loc},
                              "fields": fields}
         if not loc:
@@ -221,9 +246,24 @@ def build_spss(release, spec, src, cfg, report):
 
 def build_2012(release, spec, src, cfg, report):
     sas = ROOT / src[spec["sas"]]["path"]
-    layout = pisa.layout_2012(pisa.sas2012(sas, INTERIM))
-    labels, formats = pisa.labels_2012(sas), pisa.formats_2012(sas)
+    layout = parse_sas_input(sas)
+    formats = pisa.formats_2012(sas)
+    forms = {f: pisa.nces_2012(ROOT / src[sid]["path"], "ST87") if f != "A" else None
+             for f, sid in spec["nces_forms"].items()}
+    if "ST87" in "".join(pisa.text_of(ROOT / src[spec["nces_forms"]["A"]]["path"])).replace(" ", ""):
+        report.append("- form A has ST87 too; check the form availability")
     missing = pisa.missing_2012(ROOT / src[spec["spss"]]["path"])
+    # The form availability, against the data: which forms have answers to ST87's first item.
+    rows = yaml.safe_load((ROOT / "dataset.yaml").read_text()).get("data_rows")
+    txt = pisa.member(ROOT / src[spec["data"]]["path"], spec["member"], INTERIM)
+    frame = read_sas_input(txt, sas, ["CNT", spec["form"], spec["belonging"][0]])
+    if rows:
+        frame = frame[frame[rows["column"]].isin(rows["in"])]
+    valid = frame[spec["belonging"][0]].isin([1, 2, 3, 4])
+    by_form = frame[valid][spec["form"]].value_counts().sort_index()
+    report.append(f"- Answers (1-4) to {spec['belonging'][0]} by {spec['form']}, in the kept rows: "
+                  + ", ".join(f"{k}: {v:,}" for k, v in by_form.items())
+                  + f" (of {len(frame):,} rows; {spec['form']} 1-3 and 5 are forms A-C and UH)")
     records = []
     for name, kind in names_of(spec):
         if name not in layout:
@@ -232,8 +272,8 @@ def build_2012(release, spec, src, cfg, report):
         up = name.upper()
         rec = {"dataset": DATASET, "release": release, "table": TABLE, "name": name}
         fields = {}
-        if up in labels:
-            rec["label"] = labels[up]
+        if layout[name][3]:
+            rec["label"] = layout[name][3]
         rec["storage_type"] = storage(kind, layout[name][2])
         declared = missing.get(up) or []
         values = []
@@ -251,6 +291,23 @@ def build_2012(release, spec, src, cfg, report):
         if unlabeled := [c for c in declared if c not in {v["code"] for v in values}]:
             report.append(f"- `{name}`: the SPSS syntax declares {unlabeled} missing, but no format labels them")
         common(rec, fields, release, kind, cfg, spec["sas"], name)
+        if kind == "belonging":
+            letter = "abcdefghi"[int(name[-2:]) - 1]
+            shown = {f: q for f, q in forms.items() if q and letter in q["items"]}
+            texts = {q["items"][letter] for q in shown.values()}
+            if len(texts) == 1:
+                q = next(iter(shown.values()))
+                rec["questions"] = [{
+                    "text": f"{q['stem']} {q['items'][letter]}", "stem": q["stem"], "item": q["items"][letter],
+                    "instructions": q["instructions"], "forms": sorted(shown),
+                    "note": US_NOTE + " The forms print the international id ST87 above the question, numbered "
+                            + ", ".join(f"{q2['number']}{letter} on form {f}" for f, q2 in sorted(shown.items())) + "."}]
+                fields["questions"] = {"origin": "publisher", "source": spec["nces_forms"][sorted(shown)[0]],
+                                       "note": f"Item {letter}) of ST87, the same on forms {', '.join(sorted(shown))}."}
+                rec["availability"] = [{"wave": int(release), "form": f} for f in sorted(shown)]
+                fields["availability"] = {"origin": "publisher", "source": spec["nces_forms"][sorted(shown)[0]],
+                                          "note": "The forms that print ST87 (B and C; form A doesn't), in the US "
+                                                  "version; the data's QuestID agrees (build/report.md)."}
         rec["provenance"] = {"record": {"origin": "publisher", "source": spec["sas"]}, "fields": fields}
         records.append(rec)
     return records
@@ -270,16 +327,18 @@ def groups_for(release, spec, records):
             "releases": [release], "members": [ref(n) for n in reps], "ordered": True, "origin": series,
             "note": "The 80 replicate weights, labelled '... STUDENT REPLICATE BRR-FAY WEIGHT(S) n'. Variance is "
                     "estimated over all 80, with W_FSTUWT (dataset.yaml `design`)."},
-           {"id": f"{release}.pv-read", "kind": "other", "label": "Plausible values in reading",
+           {"id": f"{release}.pv-read", "kind": "plausible_values", "label": "Plausible values in reading",
             "releases": [release], "members": [ref(n) for n in pvs], "ordered": True, "origin": series,
             "note": f"{len(pvs)} plausible values of each student's reading score, to be analysed together."}]
     bel = [n for n in spec["belonging"] if n in names]
-    stem = next((r["questions"][0].get("stem") for r in records if r["name"] in bel and r.get("questions")), None)
+    first = next((r for r in records if r["name"] in bel and r.get("questions")), None)
+    stem = first["questions"][0].get("stem") if first else None
     battery = {"id": f"{release}.belonging", "kind": "battery", "label": "Sense of belonging at school",
                "releases": [release], "members": [ref(n) for n in bel], "ordered": True}
     if stem:
         battery["stem"] = stem
-        battery["origin"] = {"origin": "publisher", "source": spec["questionnaire"]}
+        battery["origin"] = {"origin": "publisher", "source": first["provenance"]["fields"]["questions"]["source"],
+                             "note": "Members and stem as the questionnaire prints them."}
     else:
         battery["origin"] = {**series, "note": f"Members by their shared question number ({bel[0][:5]})."}
     out.append(battery)
@@ -303,7 +362,16 @@ def links_between(old, new, recs_old, recs_new, cfg, codebook_new):
             report.append(f"- `{n}`: not in {new}")
             continue
         if n in cfg["rescaled"]:
-            report.append(f"- `{n}`: a scaled index, estimated afresh in each cycle; not linked")
+            source = cfg["rescaled"][n]
+            if not source:
+                report.append(f"- `{n}`: a scaled index, estimated afresh in each cycle; no source here says it was "
+                              "rescaled, so not linked")
+                continue
+            out.append({"from": {"release": old, "table": TABLE, "name": n},
+                        "to": {"release": new, "table": TABLE, "name": n}, "relations": ["rescaled"],
+                        "origin": {"origin": "publisher", "source": source},
+                        "note": "The OECD publishes this index rescaled for trend analysis (escs_trend.zip), so each "
+                                "cycle's own values aren't comparable with another's."})
             continue
         s = by_new[n]
         if is_change(compare_text(strip_stem(r.get("label")), strip_stem(s.get("label")))):
