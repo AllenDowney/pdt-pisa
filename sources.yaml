@@ -247,3 +247,51 @@ sources:
       and cultural status (ESCS) for use with the PISA 2012, 2015 and 2018 datasets" (2022
       section) and "for use with the PISA 2000, 2003, 2006, 2009 and 2012 datasets" (2015
       section). That is the source for the `rescaled` links on ESCS.
+  # ---- technical reports: Fay's factor, the BELONG scale, the trend items
+  - id: pisa2012-techrep
+    title: "OECD (2014), PISA 2012 Technical Report"
+    kind: other
+    format: pdf
+    url: "https://neqmap.bangkok.unesco.org/wp-content/uploads/2019/08/PISA-2012-technical-report-final-1.pdf"
+    path: data/raw/PISA-2012-technical-report-final-1.pdf
+    releases: ["2012"]
+    documents: ["2012"]
+    redistribution: unknown
+    acquisition: manual
+    fetched_on: "2026-11-19"
+    sha256: f04a99a8ec20f2a8eafa2329c50c4ed9ff6c1b767f06a2fc5aa40b16893e5244
+    bytes: 5201529
+    manual_steps: >-
+      Download the PDF from UNESCO's NEQMAP mirror (the url). The OECD's own copy is on
+      www.oecd.org behind a bot check. Allen downloaded it on 2026-11-20.
+    note: >-
+      Published by the OECD; this copy is from UNESCO Bangkok's NEQMAP library. Used for Fay's
+      factor (Chapter 8, pp. 139-140) and the BELONG scale's items (pp. 51, 332-334).
+  - id: nces-pisa2015-techrep
+    title: "Kastberg et al. (2017), Technical Report and User Guide for the 2015 Program for International Student Assessment (PISA), NCES 2017-095"
+    kind: other
+    format: pdf
+    url: "https://nces.ed.gov/pubs2017/2017095.pdf"
+    path: data/raw/2017095.pdf
+    releases: ["2015"]
+    documents: ["2015"]
+    redistribution: unknown
+    acquisition: automated
+    fetched_on: "2026-11-19"
+    sha256: 0aa749c584e698158ee8a7a535f6513bbef7dcc35735d1e831c530d492acc38d
+    bytes: 2896398
+    note: NCES's technical report for the US data. Used for Fay's factor (section 10.1, p. 64).
+  - id: nces-pisa2018-techrep
+    title: "Kastberg et al. (2021), Technical Report and User Guide for the 2018 Program for International Student Assessment (PISA), NCES 2021-011"
+    kind: other
+    format: pdf
+    url: "https://nces.ed.gov/pubs2021/2021011.pdf"
+    path: data/raw/2021011.pdf
+    releases: ["2018"]
+    documents: ["2018"]
+    redistribution: unknown
+    acquisition: automated
+    fetched_on: "2026-11-19"
+    sha256: 91a95d8914c46099965c1cb39556268e6f0d5532428a7ff7e5c27a8543f5b3b4
+    bytes: 11929324
+    note: NCES's technical report for the US data. Used for Fay's factor (section 10, p. 66).

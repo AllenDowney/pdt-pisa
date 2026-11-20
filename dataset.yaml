@@ -33,8 +33,8 @@ design:
     method: fay
     note: >-
       The data files label them "FINAL TRIMMED NONRESPONSE ADJUSTED STUDENT REPLICATE
-      BRR-FAY WEIGHTS n". Fay's factor isn't in the sources here (the technical reports,
-      which give it, are behind a bot check), so `fay_factor` is left out.
+      BRR-FAY WEIGHTS n". Fay's factor is 0.5 in 2012, 2015 and 2018 (their releases give it,
+      with sources). No source here gives it for 2022, so it's left out here.
   note: >-
     W_FSTUWT is the "FINAL TRIMMED NONRESPONSE ADJUSTED STUDENT WEIGHT". Variance comes from
     the replicate weights, not from strata and PSUs, so `strata` and `psu` are left out.
@@ -61,14 +61,20 @@ releases:
     label: "PISA 2012 Database"
     status: superseded
     sources: [pisa2012-sas-control, pisa2012-spss-control, nces-pisa2012-stu-questionnaire-a,
-              nces-pisa2012-stu-questionnaire-b, nces-pisa2012-stu-questionnaire-c]
+              nces-pisa2012-stu-questionnaire-b, nces-pisa2012-stu-questionnaire-c, pisa2012-techrep]
     design:
       weights: [W_FSTUWT]
       replicates:
         prefix: W_FSTR
         n: 80
         method: fay
-        note: Labelled "FINAL STUDENT REPLICATE BRR-FAY WEIGHT n" in the SAS control file.
+        fay_factor: 0.5
+        note: >-
+          Labelled "FINAL STUDENT REPLICATE BRR-FAY WEIGHT n" in the SAS control file. The
+          PISA 2012 Technical Report (pisa2012-techrep), Chapter 8, pp. 139-140: "the particular
+          variant known as Fay's method was used"; replicate weights multiply one school's weights
+          "by 1.5, and the weights from the remaining schools by 0.5", and VBRR = 0.05 Σ (Xt* - X*)²,
+          that is, Fay's factor 0.5.
     tables:
       - id: student
         label: "Student questionnaire data file (INT_STU12_DEC03.txt)"
@@ -80,7 +86,18 @@ releases:
   - id: "2015"
     label: "PISA 2015 Database"
     status: superseded
-    sources: [pisa2015-codebook, nces-pisa2015-stu-questionnaire, pisa-data-files-page]
+    sources: [pisa2015-codebook, nces-pisa2015-stu-questionnaire, pisa-data-files-page, nces-pisa2015-techrep]
+    design:
+      weights: [W_FSTUWT]
+      replicates:
+        prefix: W_FSTURWT
+        n: 80
+        method: fay
+        fay_factor: 0.5
+        note: >-
+          NCES, Technical Report and User Guide for the 2015 PISA (nces-pisa2015-techrep),
+          section 10.1, p. 64: "Fay's method of balanced repeated replicates (BRR) with 80
+          replicates and the Fay coefficient set to 0.5".
     tables:
       - id: student
         label: "Student questionnaire data file (CY6_MS_CMB_STU_QQQ.sav)"
@@ -91,7 +108,18 @@ releases:
   - id: "2018"
     label: "PISA 2018 Database"
     status: superseded
-    sources: [pisa2018-codebook, nces-pisa2018-stu-questionnaire, pisa-data-files-page]
+    sources: [pisa2018-codebook, nces-pisa2018-stu-questionnaire, pisa-data-files-page, nces-pisa2018-techrep]
+    design:
+      weights: [W_FSTUWT]
+      replicates:
+        prefix: W_FSTURWT
+        n: 80
+        method: fay
+        fay_factor: 0.5
+        note: >-
+          NCES, Technical Report and User Guide for the 2018 PISA (nces-pisa2018-techrep),
+          section 10, p. 66: "Fay's method of balanced repeated replicates (BRR) with 80
+          replicates and the Fay coefficient set to 0.5".
     tables:
       - id: student
         label: "Student questionnaire data file (CY07_MSU_STU_QQQ.sav)"
