@@ -248,6 +248,8 @@ sources:
       section) and "for use with the PISA 2000, 2003, 2006, 2009 and 2012 datasets" (2015
       section). That is the source for the `rescaled` links on ESCS.
   # ---- technical reports: Fay's factor, the BELONG scale, the trend items
+  # Technical reports: Allen Downey decided they ship (2026-11-20); NCES reports as federal works,
+  # the OECD report under the same decision as the other OECD files.
   - id: pisa2012-techrep
     title: "OECD (2014), PISA 2012 Technical Report"
     kind: other
@@ -256,7 +258,7 @@ sources:
     path: data/raw/PISA-2012-technical-report-final-1.pdf
     releases: ["2012"]
     documents: ["2012"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: manual
     fetched_on: "2026-11-19"
     sha256: f04a99a8ec20f2a8eafa2329c50c4ed9ff6c1b767f06a2fc5aa40b16893e5244
@@ -275,7 +277,7 @@ sources:
     path: data/raw/2017095.pdf
     releases: ["2015"]
     documents: ["2015"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: 0aa749c584e698158ee8a7a535f6513bbef7dcc35735d1e831c530d492acc38d
@@ -289,7 +291,7 @@ sources:
     path: data/raw/2021011.pdf
     releases: ["2018"]
     documents: ["2018"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: 91a95d8914c46099965c1cb39556268e6f0d5532428a7ff7e5c27a8543f5b3b4
