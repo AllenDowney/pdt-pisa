@@ -16,11 +16,15 @@ description: >-
 # Terms are decided by a person, never by an agent or this template (STANDARD.md §8).
 terms:
   url: "https://www.oecd.org/en/about/terms-conditions.html"
-  summary: Not yet reviewed.
-  data: unknown
-  documentation: unknown
-  metadata: unknown
-  llm_processing: unknown
+  summary: >
+    OECD Terms and Conditions: data may be extracted, downloaded, copied, adapted, printed, distributed, shared and embedded for any purpose, even commercial, with credit to the OECD using the dataset's citation. Written content published since 1 July 2024 is CC BY 4.0; earlier written content may be used, copied, distributed and adapted with citation, but commercial translation needs authorisation. Allen Downey decided on 2026-11-19 that data, documentation and metadata ship and that LLM processing is allowed, with an OECD credit as the notice.
+  notice: "Source: OECD, PISA database (2012, 2015, 2018 and 2022 student questionnaire data files). Cite each dataset as the OECD asks."
+  data: ship
+  documentation: ship
+  metadata: ship
+  llm_processing: allowed
+  reviewed_by: Allen Downey
+  reviewed_on: "2026-11-19"
 design:
   weights: [W_FSTUWT]
   note: >-

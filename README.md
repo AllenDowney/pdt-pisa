@@ -12,7 +12,9 @@ The OECD's assessment of 15-year-old students in reading, mathematics and scienc
 
 ## Terms of use
 
-The terms are at https://www.oecd.org/en/about/terms-conditions.html. They haven't been reviewed yet, so nothing built from this repo may ship (STANDARD.md §8). Once a person has decided them, summarize them here; the decision is in [`dataset.yaml`](dataset.yaml).
+The terms are at https://www.oecd.org/en/about/terms-conditions.html. The OECD lets its data be copied, adapted and redistributed for any purpose, with credit; written content since July 2024 is CC BY 4.0. Allen Downey reviewed the terms on 2026-11-19: the data, documentation and metadata may ship, and the documentation may be processed by an LLM. The decision is in [`dataset.yaml`](dataset.yaml). Credit the source:
+
+> Source: OECD, PISA database (2012, 2015, 2018 and 2022 student questionnaire data files). Cite each dataset as the OECD asks.
 
 ## How to get the data
 

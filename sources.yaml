@@ -16,7 +16,7 @@ sources:
     url: "https://webfs.oecd.org/pisa2022/STU_QQQ_SPSS.zip"
     path: data/raw/STU_QQQ_SPSS.zip
     releases: ["2022"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: 24ee020cd6315d8aca52e07fd9aaef21cbf4f9e5b21601734b4ee6d0928a0905
@@ -29,7 +29,7 @@ sources:
     path: data/raw/CY08MSP_CODEBOOK_27thJune24.xlsx
     releases: ["2022"]
     documents: ["2022"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: e130e8ea3bb328d09a02789291673531300870967e236dd8f658e7052e12c974
@@ -42,7 +42,7 @@ sources:
     path: "data/raw/COMPUTER-BASED STUDENT questionnaire PISA 2022.pdf"
     releases: ["2022"]
     documents: ["2022"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: manual
     fetched_on: "2026-11-19"
     sha256: 80531c9601a672357236c29904c6497608e7e92592db2246820328a371437df5
@@ -58,7 +58,7 @@ sources:
     url: "https://webfs.oecd.org/pisa2018/SPSS_STU_QQQ.zip"
     path: data/raw/SPSS_STU_QQQ.zip
     releases: ["2018"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: df39c2b4c27649fd86866c0f7d23f9544ffc071634387d4ee52d1b433de70ea6
@@ -71,7 +71,7 @@ sources:
     path: data/raw/PISA2018_CODEBOOK.xlsx
     releases: ["2018"]
     documents: ["2018"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: 04b5cad246f48511d15894d0d3aca4f5b6c19e8079bea4a090f2fb302a842066
@@ -84,7 +84,7 @@ sources:
     url: "https://webfs.oecd.org/pisa/PUF_SPSS_COMBINED_CMB_STU_QQQ.zip"
     path: data/raw/PUF_SPSS_COMBINED_CMB_STU_QQQ.zip
     releases: ["2015"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: e517fea02e34264a0891b6ccab753d8343dbd31258052a4ff9361214f682f17f
@@ -100,7 +100,7 @@ sources:
     path: data/raw/Codebook_CMB.xlsx
     releases: ["2015"]
     documents: ["2015"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: automated
     fetched_on: "2026-11-19"
     sha256: 61e4f09363c87470390f60f64d90b37af5902f12722fbea0ca24178df8e14c2c
@@ -113,7 +113,7 @@ sources:
     url: "https://www.oecd.org/content/dam/oecd/en/data/datasets/pisa/pisa-2012-datasets/main-survey/data-sets-in-txt-format/INT_STU12_DEC03.zip"
     path: data/raw/INT_STU12_DEC03.zip
     releases: ["2012"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: manual
     fetched_on: "2026-11-19"
     sha256: d8144e4585dd5f78632168dbcf65b5e10b7cf5006b7625ecb06445653d567bd9
@@ -129,7 +129,7 @@ sources:
     path: data/raw/PISA2012_SAS_student.sas
     releases: ["2012"]
     documents: ["2012"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: manual
     fetched_on: "2026-11-19"
     sha256: 5398869a95d69eac9e80c7d5d0ff32d4aa00488094211d8552f82df3e7c74e5f
@@ -145,7 +145,7 @@ sources:
     path: "data/raw/SPSS syntax to read in student questionnaire data file.txt"
     releases: ["2012"]
     documents: ["2012"]
-    redistribution: unknown
+    redistribution: ship
     acquisition: manual
     fetched_on: "2026-11-19"
     sha256: 50893d9daa291b24b67e2d9a940885ba10e541e8767e13206403d8ea453ec07f
