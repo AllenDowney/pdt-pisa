@@ -67,9 +67,9 @@ make check
 
 The metadata tools (`make views`, `make check`) need only the toolkit's base install
 (`pip install -e ../PublicDataToolkit`). Building or reading the data files (`make data`,
-`scripts/extract.py` where the repo has one, and the data checks in `make check`) also
-needs pandas, numpy and pyarrow: `pip install -e "../PublicDataToolkit[data]"`. Without
-them, `make check` skips the data checks and says why.
+`scripts/extract.py`, and the data checks in `make check`) also needs pandas, numpy and
+pyarrow: `pip install -e "../PublicDataToolkit[data]"`. Without them, `make check` skips
+the data checks and says why.
 
 ## License
 
